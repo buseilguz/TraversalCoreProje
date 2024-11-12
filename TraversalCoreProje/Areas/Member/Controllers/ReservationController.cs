@@ -59,9 +59,10 @@ namespace TraversalCoreProje.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult NewReservation(Reservation p)
+        public async Task<IActionResult> NewReservation(Reservation p)
         {
-            p.AppUserId = 1004;
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            p.AppUserId = values.Id;
             p.Status = "Onay Bekliyor";
             reservationManager.TAdd(p);
             return RedirectToAction("MyCurrentReservation");
