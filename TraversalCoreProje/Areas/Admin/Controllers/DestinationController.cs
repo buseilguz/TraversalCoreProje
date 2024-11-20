@@ -32,7 +32,31 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         {
             destinationManager.TAdd(destination);
             return RedirectToAction("Index");
-            //48.video/dk9
+          
+        }
+
+        public IActionResult DeleteDestination(int id)
+        {
+            var values = destinationManager.TGetById(id);
+            destinationManager.TDelete(values);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateDestination(int id)
+        {
+            var values = destinationManager.TGetById(id);
+            return View(values);
+
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateDestination(Destination destination)
+        {
+            destinationManager.TUpdate(destination);
+            return RedirectToAction("Index");
+
         }
     }
 }
